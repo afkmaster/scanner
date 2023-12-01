@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Html-Qrcode Demo</title>
+  <body>
+    <script src="./html5-qrcode.js "></script>
+    <style>
+      #html5-qrcode-button-camera-permission {
+        height: 250px;
+        width: 400px;
+      }
+
+      #qr-reader {
+        display: block;
+      }
+
+      #qr-reader-results {
+        margin-top: 20px;
+        text-align: center;
+        display: block;
+      }
+    </style>
+    <div class="container">
+      <div id="qr-reader"></div>
+      <div id="qr-reader-results"></div>
+    </div> 
+  </body>
+  <script>
+    function docReady(fn) {
+      // see if DOM is already available
+      if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1);
+      } else {
+        document.addEventListener("DOMContentLoaded", fn);
+      }
+    }
+
+    docReady(function () {
+      var resultContainer = document.getElementById('qr-reader-results');
+      var lastResult, countResults = 0;
+      function onScanSuccess(decodedText, decodedResult) {
+        resultContainer.textContent = decodedText;
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox:{width:500, height:250} });
+      html5QrcodeScanner.render(onScanSuccess);
+    });
+  </script>
+  </head>
+</html>
